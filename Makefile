@@ -1,6 +1,3 @@
-#-------------------------------------------------------------------
-# get SVN revision
-
 MCU = atmega48
 F_CPU = 20000000
 QUARZ = 20MHZ
@@ -72,13 +69,6 @@ CFLAGS += -std=gnu99
 CFLAGS += -DF_CPU=$(F_CPU)
 CFLAGS += -DQUARZ=$(QUARZ)
 
-ifeq ($(BOARD), MMT)
- CFLAGS += -DUSE_MMT	
-endif
-ifeq ($(BOARD), MMTNG)
- CFLAGS += -DUSE_MMTNG
-endif
-
 
 # Optional assembler flags.
 #  -Wa,...:   tell GCC to pass this to the assembler.
@@ -145,10 +135,6 @@ AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
 # performed after programming the device.
 AVRDUDE_FLAGS += -V
 
-# Increase verbosity level.  Please use this when submitting bug
-# reports about avrdude. See <http://savannah.nongnu.org/projects/avrdude> 
-# to submit bug reports.
-#AVRDUDE_FLAGS += -v -v
 
 # ---------------------------------------------------------------------------
 # Define directories, if needed.
