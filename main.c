@@ -302,29 +302,7 @@ int main(void)
 					
 					
 				}
-                
-				
-				uint8_t test = 0;
 
-
-				// if one channel is out of normal data, don't use that frame
-
-				for(i=0;i<12;i++)
-				{
-					if( channels[i] > 1850 ) test = 1;
-					if( channels[i] < 150 )  test = 1;
-				}
-				
-				if(test == 1)
-				{
-					for(i=0;i<12;i++)
-					{
-						channels[i] = channels_vold[i];
-					}
-				}
-				
-
-				
 #if FORCE_FAILSAFE == FALSE
 				if(first < 110)
 				{
