@@ -100,7 +100,7 @@ ISR(TIMER0_OVF_vect)
 	
 		if(PORTC & (1<<PORTC4))
 		{
- 			PORTC &= ~(1<<PORTC4);
+			PORTC &= ~(1<<PORTC4);
 		}
 		else
 		{
@@ -109,7 +109,7 @@ ISR(TIMER0_OVF_vect)
 
 		if(PORTB & (1<<PORTB1))
 		{
- 			PORTB &= ~(1<<PORTB1);
+			PORTB &= ~(1<<PORTB1);
 		}
 		else
 		{
@@ -143,10 +143,10 @@ ISR(PCINT2_vect)
 int main(void)
 {
 #if PPM_OUTPUT == TRUE
-    isr_channel_pw[0] = ((((F_CPU/1000) * 1500)/1000)/TIMER1_PRESCALER);
-    isr_channel_pw[1] = ((((F_CPU/1000) * 1500)/1000)/TIMER1_PRESCALER);
-    isr_channel_pw[2] = ((((F_CPU/1000) * 1500)/1000)/TIMER1_PRESCALER);
-    isr_channel_pw[3] = ((((F_CPU/1000) * 1500)/1000)/TIMER1_PRESCALER);
+	isr_channel_pw[0] = ((((F_CPU/1000) * 1500)/1000)/TIMER1_PRESCALER);
+	isr_channel_pw[1] = ((((F_CPU/1000) * 1500)/1000)/TIMER1_PRESCALER);
+	isr_channel_pw[2] = ((((F_CPU/1000) * 1500)/1000)/TIMER1_PRESCALER);
+	isr_channel_pw[3] = ((((F_CPU/1000) * 1500)/1000)/TIMER1_PRESCALER);
 	isr_channel_pw[4] = ((((F_CPU/1000) * 1500)/1000)/TIMER1_PRESCALER);
 	isr_channel_pw[5] = ((((F_CPU/1000) * 1500)/1000)/TIMER1_PRESCALER);
 	isr_channel_pw[6] = ((((F_CPU/1000) * 1500)/1000)/TIMER1_PRESCALER);
@@ -158,7 +158,7 @@ int main(void)
 	isr_channel_pw[11] = ((((F_CPU/1000) * 1500)/1000)/TIMER1_PRESCALER);
 #endif
 
-                                
+								
 	TCCR1A = (1<<COM1B1) | (0<<COM1B0) | (1<<WGM11) | (1<<WGM10);
 	TCCR1B = (1<<WGM13)|(1<<WGM12);
 	OCR1A = RC_RESET_PW_TIMER_VAL;
@@ -166,7 +166,7 @@ int main(void)
 	TIMSK1 |= (1<<OCIE1B)|(1<<TOIE1);
 	TCNT1 = 0; 
 
-    isr_channel_number = 1;		
+	isr_channel_number = 1;		
 #endif
 
 	// timer0 with prescaler 8, and interrupt, Int freq: 9433khz , ~0.0001s 
@@ -200,15 +200,15 @@ int main(void)
 #endif	
 
 	USART_Init();
-    sei();
+	sei();
 
 	uint8_t data = 0;
-        
+		
 	uint8_t current_bit_in_ch = 0;
 	uint8_t current_bit_in_byte = 0;
-    uint8_t current_byte = 0;
-    uint8_t current_ch = 0;
-    uint8_t i = 0;
+	uint8_t current_byte = 0;
+	uint8_t current_ch = 0;
+	uint8_t i = 0;
 	uint8_t sbus_bytes[25];
 	int16_t channels[12];
 	int16_t channels_old[12];
@@ -225,15 +225,15 @@ int main(void)
 	
 
 #if FORCE_FAILSAFE == FALSE
-    uint8_t first = 0;  
+	uint8_t first = 0;  
 	ReadParameter();
 	if((MODE != 1)&&(MODE != 2)) MODE = 1;
 #endif
 #if FORCE_FAILSAFE == TRUE
 	MODE = 1;
 #endif
-      
-                     
+	
+					
 	while(1)
 	{
 		if(timeout == 0)
@@ -242,23 +242,23 @@ int main(void)
 			timeout = 60; // 6ms
 		}
 			
-	    if(uart_getc_nb(&data))
-	    {
-	    	timeout = 60; //6ms
-	    	if(curr_byte == 0)
-	    	{
-	    		if(data != 0x0F)
-	    		{
-	    			curr_byte = 30;
-	    		}
-	    	}
+		if(uart_getc_nb(&data))
+		{
+			timeout = 60; //6ms
+			if(curr_byte == 0)
+			{
+				if(data != 0x0F)
+				{
+					curr_byte = 30;
+				}
+			}
 			
 			if( curr_byte == 24)
 			{
-	    		if(data != 0)
-	    		{
-	    			curr_byte = 30;
-	    		}
+				if(data != 0)
+				{
+					curr_byte = 30;
+				}
 			}
 			if(curr_byte < 25)
 			{
@@ -358,7 +358,7 @@ int main(void)
 					{
 						ready = 1;
 #if ENABLE_LED == TRUE
-			            ledpause = 0x2FFF;
+						ledpause = 0x2FFF;
 						ledcycle = 0;
 						PORTC |= (1<<PORTC4);
 						PORTB |= (1<<PORTB1);
@@ -378,11 +378,11 @@ int main(void)
 #if RSSI_OUTPUT == TRUE				
 					OCR2A=0;
 #endif					
-		    		if(ready == 1)
-		    		{
+					if(ready == 1)
+					{
 						ready = 0;
 #if ENABLE_LED == TRUE
-		    	        ledpause = 0x2FFF;
+						ledpause = 0x2FFF;
 						ledcycle = 0;
 						PORTC |= (1<<PORTC4);
 						PORTB |= (1<<PORTB1);
@@ -413,109 +413,109 @@ int main(void)
 					UBRRL = (uint8_t)ubrr;
 					UCSRA |= (1 << U2X);
 					//8N1
-			        UCSRC &= ~(1 << UPM1);
-			        UCSRC &= ~(1 << UPM0);
-			        UCSRC &= ~(1 << USBS);
-			        UCSRB &= ~(1 << UCSZ2);
-			        UCSRC |=  (1 << UCSZ1);
-			        UCSRC |=  (1 << UCSZ0);
+					UCSRC &= ~(1 << UPM1);
+					UCSRC &= ~(1 << UPM0);
+					UCSRC &= ~(1 << USBS);
+					UCSRB &= ~(1 << UCSZ2);
+					UCSRC |=  (1 << UCSZ1);
+					UCSRC |=  (1 << UCSZ0);
 
 					_delay_ms(2);
 
 
-    				if(spektrum_frame == 0)
-	                {
+					if(spektrum_frame == 0)
+					{
 						spektrum_frame=1;
 
-        	        	USART_putc(0);
-            		    USART_putc(0);
+						USART_putc(0);
+						USART_putc(0);
 #if SPEKTRUM_TYPE == SPEKTRUM_NORMAL
-    	                USART_putc( ((uint8_t)((channels[0] >> 9)&0x03)) + (0 << 2)  );
-        	            USART_putc(  ((uint8_t)(channels[0] >> 1)) );
-            	        USART_putc( ((uint8_t)((channels[1] >> 9)&0x03)) + (1 << 2)  );
-                	    USART_putc(  ((uint8_t)(channels[1] >> 1)) );
-	                    USART_putc( ((uint8_t)((channels[2] >> 9)&0x03)) + (2 << 2)  );
-    	                USART_putc(  ((uint8_t)(channels[2] >> 1)) );
-        	            USART_putc( ((uint8_t)((channels[3] >> 9)&0x03)) + (3 << 2)  );
-            	        USART_putc(  ((uint8_t)(channels[3] >> 1)) );
-	                    USART_putc( ((uint8_t)((channels[4] >> 9)&0x03)) + (4 << 2)  );
-    	                USART_putc(  ((uint8_t)(channels[4] >> 1)) );
-        	            USART_putc( ((uint8_t)((channels[5] >> 9)&0x03)) + (5 << 2)  );
-            	        USART_putc(  ((uint8_t)(channels[5] >> 1)) );
-	                    USART_putc( ((uint8_t)((channels[6] >> 9)&0x03)) + (6 << 2)  );
-    	                USART_putc(  ((uint8_t)(channels[6] >> 1)) );
+						USART_putc( ((uint8_t)((channels[0] >> 9)&0x03)) + (0 << 2)  );
+						USART_putc(  ((uint8_t)(channels[0] >> 1)) );
+						USART_putc( ((uint8_t)((channels[1] >> 9)&0x03)) + (1 << 2)  );
+						USART_putc(  ((uint8_t)(channels[1] >> 1)) );
+						USART_putc( ((uint8_t)((channels[2] >> 9)&0x03)) + (2 << 2)  );
+						USART_putc(  ((uint8_t)(channels[2] >> 1)) );
+						USART_putc( ((uint8_t)((channels[3] >> 9)&0x03)) + (3 << 2)  );
+						USART_putc(  ((uint8_t)(channels[3] >> 1)) );
+						USART_putc( ((uint8_t)((channels[4] >> 9)&0x03)) + (4 << 2)  );
+						USART_putc(  ((uint8_t)(channels[4] >> 1)) );
+						USART_putc( ((uint8_t)((channels[5] >> 9)&0x03)) + (5 << 2)  );
+						USART_putc(  ((uint8_t)(channels[5] >> 1)) );
+						USART_putc( ((uint8_t)((channels[6] >> 9)&0x03)) + (6 << 2)  );
+						USART_putc(  ((uint8_t)(channels[6] >> 1)) );
 #endif    	                
 #if SPEKTRUM_TYPE == SPEKTRUM_HIRES
-    	                USART_putc( ((uint8_t)((channels[0] >> 8)&0x07)) + (0 << 3)  );
-        	            USART_putc(  ((uint8_t)(channels[0])) );
-            	        USART_putc( ((uint8_t)((channels[1] >> 8)&0x07)) + (1 << 3)  );
-                	    USART_putc(  ((uint8_t)(channels[1])) );
-	                    USART_putc( ((uint8_t)((channels[2] >> 8)&0x07)) + (2 << 3)  );
-    	                USART_putc(  ((uint8_t)(channels[2])) );
-        	            USART_putc( ((uint8_t)((channels[3] >> 8)&0x07)) + (3 << 3)  );
-            	        USART_putc(  ((uint8_t)(channels[3])) );
-	                    USART_putc( ((uint8_t)((channels[4] >> 8)&0x07)) + (4 << 3)  );
-    	                USART_putc(  ((uint8_t)(channels[4])) );
-        	            USART_putc( ((uint8_t)((channels[5] >> 8)&0x07)) + (5 << 3)  );
-            	        USART_putc(  ((uint8_t)(channels[5])) );
-	                    USART_putc( ((uint8_t)((channels[6] >> 8)&0x07)) + (6 << 3)  );
-    	                USART_putc(  ((uint8_t)(channels[6])) );
+						USART_putc( ((uint8_t)((channels[0] >> 8)&0x07)) + (0 << 3)  );
+						USART_putc(  ((uint8_t)(channels[0])) );
+						USART_putc( ((uint8_t)((channels[1] >> 8)&0x07)) + (1 << 3)  );
+						USART_putc(  ((uint8_t)(channels[1])) );
+						USART_putc( ((uint8_t)((channels[2] >> 8)&0x07)) + (2 << 3)  );
+						USART_putc(  ((uint8_t)(channels[2])) );
+						USART_putc( ((uint8_t)((channels[3] >> 8)&0x07)) + (3 << 3)  );
+						USART_putc(  ((uint8_t)(channels[3])) );
+						USART_putc( ((uint8_t)((channels[4] >> 8)&0x07)) + (4 << 3)  );
+						USART_putc(  ((uint8_t)(channels[4])) );
+						USART_putc( ((uint8_t)((channels[5] >> 8)&0x07)) + (5 << 3)  );
+						USART_putc(  ((uint8_t)(channels[5])) );
+						USART_putc( ((uint8_t)((channels[6] >> 8)&0x07)) + (6 << 3)  );
+						USART_putc(  ((uint8_t)(channels[6])) );
 #endif    	                
-        			}
+					}
 					else
-               		{
+					{
 						spektrum_frame=0;
-                 		USART_putc(0);
-                 		USART_putc(0);
+						USART_putc(0);
+						USART_putc(0);
 #if SPEKTRUM_TYPE == SPEKTRUM_NORMAL                 		
-                 		USART_putc( ((uint8_t)((channels[7] >> 9)&0x03)) + (7 << 2) + 0x80 );
-                 		USART_putc( ((uint8_t) (channels[7] >> 1)) );
-                 		USART_putc( ((uint8_t)((channels[8] >> 9)&0x03)) + (8 << 2)  );
-                		USART_putc(  ((uint8_t)(channels[8] >> 1)) );
-                 		USART_putc( ((uint8_t)((channels[9] >> 9)&0x03)) + (9 << 2)  );
-                 		USART_putc(  ((uint8_t)(channels[9] >> 1)) );
-                 		USART_putc( ((uint8_t)((channels[10] >> 9)&0x03)) + (10 << 2) );
-                		USART_putc(  ((uint8_t)(channels[10] >> 1)) );
-                 		USART_putc( ((uint8_t)((channels[11] >> 9)&0x03)) + (11 << 2) );
-                 		USART_putc(  ((uint8_t)(channels[11] >> 1)) );
-                 		
-                 		USART_putc( ((uint8_t)((1024 >> 9)&0x03)) + (12 << 2) );
-                 		USART_putc(  ((uint8_t)(1024 >> 1)) );
-                 		USART_putc( ((uint8_t)((1024 >> 9)&0x03)) + (13 << 2) );
-                 		USART_putc(  ((uint8_t)(1024 >> 1)) );
+						USART_putc( ((uint8_t)((channels[7] >> 9)&0x03)) + (7 << 2) + 0x80 );
+						USART_putc( ((uint8_t) (channels[7] >> 1)) );
+						USART_putc( ((uint8_t)((channels[8] >> 9)&0x03)) + (8 << 2)  );
+						USART_putc(  ((uint8_t)(channels[8] >> 1)) );
+						USART_putc( ((uint8_t)((channels[9] >> 9)&0x03)) + (9 << 2)  );
+						USART_putc(  ((uint8_t)(channels[9] >> 1)) );
+						USART_putc( ((uint8_t)((channels[10] >> 9)&0x03)) + (10 << 2) );
+						USART_putc(  ((uint8_t)(channels[10] >> 1)) );
+						USART_putc( ((uint8_t)((channels[11] >> 9)&0x03)) + (11 << 2) );
+						USART_putc(  ((uint8_t)(channels[11] >> 1)) );
+
+						USART_putc( ((uint8_t)((1024 >> 9)&0x03)) + (12 << 2) );
+						USART_putc(  ((uint8_t)(1024 >> 1)) );
+						USART_putc( ((uint8_t)((1024 >> 9)&0x03)) + (13 << 2) );
+						USART_putc(  ((uint8_t)(1024 >> 1)) );
 #endif                 		
 #if SPEKTRUM_TYPE == SPEKTRUM_HIRES                 		
-                 		USART_putc( ((uint8_t)((channels[7] >> 8)&0x07)) + (7 << 3) );
-                 		USART_putc(  ((uint8_t)(channels[7])) );
-                 		USART_putc( ((uint8_t)((channels[8] >> 8)&0x07)) + (8 << 3) );
-                 		USART_putc(  ((uint8_t)(channels[8])) );
-                 		USART_putc( ((uint8_t)((channels[9] >> 8)&0x07)) + (9 << 3) );
-                 		USART_putc(  ((uint8_t)(channels[9])) );
-                 		USART_putc( ((uint8_t)((channels[10] >> 8)&0x07)) + (10 << 3) );
-                 		USART_putc(  ((uint8_t)(channels[10])) );
-                 		USART_putc( ((uint8_t)((channels[11] >> 8)&0x07)) + (11 << 3) );
-                 		USART_putc(  ((uint8_t)(channels[11])) );
-                 		USART_putc( ((uint8_t)((1024 >> 8)&0x07)) + (12 << 3) );
-                 		USART_putc(  ((uint8_t)(1024)) );
-                 		USART_putc( ((uint8_t)((1024 >> 8)&0x07)) + (13 << 3) );
-                 		USART_putc(  ((uint8_t)(1024)) );
+						USART_putc( ((uint8_t)((channels[7] >> 8)&0x07)) + (7 << 3) );
+						USART_putc(  ((uint8_t)(channels[7])) );
+						USART_putc( ((uint8_t)((channels[8] >> 8)&0x07)) + (8 << 3) );
+						USART_putc(  ((uint8_t)(channels[8])) );
+						USART_putc( ((uint8_t)((channels[9] >> 8)&0x07)) + (9 << 3) );
+						USART_putc(  ((uint8_t)(channels[9])) );
+						USART_putc( ((uint8_t)((channels[10] >> 8)&0x07)) + (10 << 3) );
+						USART_putc(  ((uint8_t)(channels[10])) );
+						USART_putc( ((uint8_t)((channels[11] >> 8)&0x07)) + (11 << 3) );
+						USART_putc(  ((uint8_t)(channels[11])) );
+						USART_putc( ((uint8_t)((1024 >> 8)&0x07)) + (12 << 3) );
+						USART_putc(  ((uint8_t)(1024)) );
+						USART_putc( ((uint8_t)((1024 >> 8)&0x07)) + (13 << 3) );
+						USART_putc(  ((uint8_t)(1024)) );
 #endif                 		
-                	}
+					}
 
 					_delay_ms(2);
-			
+
 					//100000
 					ubrr = (uint16_t) ((uint32_t) F_CPU/(8 * 100000) - 1);
 					UBRRH = (uint8_t)(ubrr>>8);
 					UBRRL = (uint8_t)ubrr;
 					UCSRA |= (1 << U2X);
 					// 8E2
-			        UCSRC |=  (1 << UPM1);
-			        UCSRC &= ~(1 << UPM0);
-			        UCSRC |=  (1 << USBS);
-			        UCSRB &= ~(1 << UCSZ2);
-			        UCSRC |=  (1 << UCSZ1);
-			        UCSRC |=  (1 << UCSZ0);
+					UCSRC |=  (1 << UPM1);
+					UCSRC &= ~(1 << UPM0);
+					UCSRC |=  (1 << USBS);
+					UCSRB &= ~(1 << UCSZ2);
+					UCSRC |=  (1 << UCSZ1);
+					UCSRC |=  (1 << UCSZ0);
 				}
 #endif // SPEKTRUM_OUTPUT	
 
@@ -540,14 +540,14 @@ int main(void)
 
 				timeout2 = 20000; // 2s
 			}
-	    }
-	    else
-	    {
-	    	if((timeout2 == 0)&&(ready == 1))
-	    	{
+		}
+		else
+		{
+			if((timeout2 == 0)&&(ready == 1))
+			{
 				ready = 0;
 #if ENABLE_LED == TRUE
-    		    ledpause = 0x2FFF;
+				ledpause = 0x2FFF;
 				ledcycle = 0;
 				PORTC |= (1<<PORTC4);
 				PORTB |= (1<<PORTB1);
@@ -559,8 +559,8 @@ int main(void)
 #if PPM_OUTPUT == TRUE
 				TCCR1B &= (~(1<<CS12)) & (~(1<<CS11)) & (~(1<<CS10));
 #endif				
-	    	}
-	    }
+			}
+		}
 	}
 }
 
