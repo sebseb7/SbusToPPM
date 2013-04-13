@@ -2,4 +2,4 @@ This small Converter converts Futaba SBus Signal (inverted serial 100000 baud) t
 
 I also sell them for 1 Euro (pcb only)
 
-![sbus](/sebseb7/SbusToPPM/raw/master/sbus.jpg)
+![sbus](https://raw.github.com/sebseb7/SbusToPPM/master/sbus.jpg)
