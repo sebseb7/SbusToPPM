@@ -1,5 +1,4 @@
 This small Converter converts Futaba SBus Signal (inverted serial 100000 baud) to PPM (Pulse Position Modulation) or Spektrum Serial (serial 115200 baud)
 
-I also sell them for 1 Euro (pcb only)
 
 ![sbus](https://raw.github.com/sebseb7/SbusToPPM/master/sbus.jpg)
