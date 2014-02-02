@@ -345,7 +345,12 @@ int main(void)
 				uint8_t i=0;
 				for(i=0;i<PPMCH;i++)
 				{
-					uint16_t pw = 1000 + (channels[i]/1.9) - 48;
+					/*
+					 * From linear regression of 7 PWM samples from
+					 * 1100..1940us. R^2 = 0.999999.
+					 * See https://gist.github.com/prattmic/8857047
+					 */
+					uint16_t pw = 0.624731*channels[i] + 880.561511;
 					isr_channel_pw[i] = ((((F_CPU/1000) * pw)/1000)/TIMER1_PRESCALER);
 				}
 				sei();
