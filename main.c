@@ -55,7 +55,6 @@ volatile uint16_t ledpause = 0x2FFF;
 #if PPM_OUTPUT == TRUE
 ISR(TIMER1_COMPB_vect)
 {
-	asm("sei");
 	isr_channel_number++;
 	if( isr_channel_number >= (PPMCH + 1) ) 
 	{
