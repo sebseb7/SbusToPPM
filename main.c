@@ -340,8 +340,13 @@ int main(void)
 				}
 
 #if PPM_OUTPUT == TRUE						
-				cli();
+				unsigned int temp_isr_channel_pw[(PPMCH +1)];
 				uint8_t i=0;
+
+				/*
+				 * Floating point math is slow, so perform computations before
+				 * disabling interrupts.
+				 */
 				for(i=0;i<PPMCH;i++)
 				{
 					/*
@@ -350,10 +355,15 @@ int main(void)
 					 * See https://gist.github.com/prattmic/8857047
 					 */
 					uint16_t pw = 0.624731*channels[i] + 880.561511;
-					isr_channel_pw[i] = ((((F_CPU/1000) * pw)/1000)/TIMER1_PRESCALER);
+					temp_isr_channel_pw[i] = ((((F_CPU/1000) * pw)/1000)/TIMER1_PRESCALER);
+				}
+
+				cli();
+				for (i = 0; i < PPMCH; i++) {
+					isr_channel_pw[i] = temp_isr_channel_pw[i];
 				}
 				sei();
-#endif					
+#endif
 
 				//wenn kein failsafe dann output senden
 				if((sbus_bytes[23] & 8) == 0)
