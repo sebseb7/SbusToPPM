@@ -55,7 +55,6 @@ volatile uint16_t ledpause = 0x2FFF;
 #if PPM_OUTPUT == TRUE
 ISR(TIMER1_COMPB_vect)
 {
-	asm("sei");
 	isr_channel_number++;
 	if( isr_channel_number >= (PPMCH + 1) ) 
 	{
@@ -341,15 +340,30 @@ int main(void)
 				}
 
 #if PPM_OUTPUT == TRUE						
-				cli();
+				unsigned int temp_isr_channel_pw[(PPMCH +1)];
 				uint8_t i=0;
+
+				/*
+				 * Floating point math is slow, so perform computations before
+				 * disabling interrupts.
+				 */
 				for(i=0;i<PPMCH;i++)
 				{
-					uint16_t pw = 1000 + (channels[i]/1.9) - 48;
-					isr_channel_pw[i] = ((((F_CPU/1000) * pw)/1000)/TIMER1_PRESCALER);
+					/*
+					 * From linear regression of 7 PWM samples from
+					 * 1100..1940us. R^2 = 0.999999.
+					 * See https://gist.github.com/prattmic/8857047
+					 */
+					uint16_t pw = 0.624731*channels[i] + 880.561511;
+					temp_isr_channel_pw[i] = ((((F_CPU/1000) * pw)/1000)/TIMER1_PRESCALER);
+				}
+
+				cli();
+				for (i = 0; i < PPMCH; i++) {
+					isr_channel_pw[i] = temp_isr_channel_pw[i];
 				}
 				sei();
-#endif					
+#endif
 
 				//wenn kein failsafe dann output senden
 				if((sbus_bytes[23] & 8) == 0)
