@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.2">
+<eagle version="6.6.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -16,11 +16,11 @@
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
 <layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="21" name="tPlace" color="7" fill="1" visible="no" active="yes"/>
+<layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="22" name="bPlace" color="7" fill="1" visible="no" active="yes"/>
 <layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="25" name="tNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
 <layer number="27" name="tValues" color="1" fill="1" visible="no" active="yes"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
@@ -90,10 +90,10 @@
 <wire x1="24.435" y1="49.1552" x2="24.4351" y2="68.6081" width="0" layer="20"/>
 <wire x1="24.4351" y1="68.6081" x2="6.6104" y2="68.6081" width="0" layer="20"/>
 <wire x1="6.6104" y1="68.6081" x2="6.6104" y2="49.1553" width="0" layer="20"/>
-<text x="12.1444" y="67.0751" size="1.016" layer="29" font="vector" ratio="15">SBUS</text>
-<text x="16.0338" y="52.7051" size="1.016" layer="29" font="vector" ratio="15" rot="R270">PPM</text>
-<text x="24.2094" y="49.6885" size="1.016" layer="29" font="vector" ratio="15" rot="R90">RSSI</text>
-<text x="7.223" y="60.2458" size="1.016" layer="29" font="vector" ratio="15" rot="R270">Spektrum</text>
+<text x="12.1444" y="67.0751" size="1.016" layer="29" font="fixed" ratio="15">SBUS</text>
+<text x="16.0338" y="52.7051" size="1.016" layer="29" font="fixed" ratio="15" rot="R270">PPM</text>
+<text x="24.2094" y="49.6885" size="1.016" layer="29" font="fixed" ratio="15" rot="R90">RSSI</text>
+<text x="7.223" y="60.2458" size="1.016" layer="29" font="fixed" ratio="15" rot="R270">Spektrum</text>
 <text x="23.4951" y="58.1025" size="1.4224" layer="30" font="vector" ratio="14" rot="MR0">SBUS TO PPM</text>
 <text x="23.3363" y="56.1976" size="1.4224" layer="30" font="vector" ratio="14" rot="MR0">seb@exse.net</text>
 </plain>
@@ -266,7 +266,7 @@ Source: http://www.osram.convergy.de/ ... LG_R971.pdf</description>
 <class number="0" name="default" width="0" drill="0">
 </class>
 </classes>
-<designrules>
+<designrules name="default">
 <description language="de">&lt;b&gt;EAGLE Design Rules Prototypen  für PCB-POOL(R)&lt;/b&gt;
 &lt;p&gt;
 Wir haben in diesem DRU File alle notwendigen Design Einstellungen vorgenommen, damit Sie Ihre Leiterplatte 
@@ -448,84 +448,71 @@ Covered vias can be set in Masks (Limit).
 </autorouter>
 <elements>
 <element name="R1" library="SparkFun" package="0805" value="1k" x="23.495" y="65.6781" smashed="yes" rot="R90">
-<attribute name="NAME" x="22.6695" y="65.2336" size="0.4064" layer="25" rot="R90"/>
 <attribute name="VALUE" x="24.0982" y="65.932" size="0.6096" layer="27" rot="R180"/>
 </element>
 <element name="SBUS_IN" library="wirepad" package="SMD1,27-2,54" value="" x="11.192" y="66.6751" smashed="yes" rot="R180">
-<attribute name="NAME" x="11.8205" y="68.8788" size="1.27" layer="25" rot="R90"/>
 <attribute name="VALUE" x="11.192" y="66.6751" size="0.0254" layer="27" rot="R180"/>
 </element>
 <element name="PPM" library="wirepad" package="SMD1,27-2,54" value="" x="14.9224" y="50.9589" smashed="yes" rot="R180">
-<attribute name="NAME" x="14.2938" y="48.1202" size="1.27" layer="25" rot="R270"/>
 <attribute name="VALUE" x="14.9224" y="50.9589" size="0.0254" layer="27" rot="R180"/>
 </element>
 <element name="C1" library="SparkFun" package="0805" value="100n" x="12.5414" y="62.0712" smashed="yes" rot="R270">
-<attribute name="NAME" x="11.3031" y="62.357" size="0.4064" layer="25" rot="R270"/>
 <attribute name="VALUE" x="11.1825" y="61.8046" size="0.6096" layer="27"/>
 </element>
 <element name="5V" library="wirepad" package="SMD1,27-2,54" value="" x="9.4456" y="66.6751" smashed="yes">
-<attribute name="NAME" x="10.0746" y="68.8788" size="1.27" layer="25" rot="R90"/>
 <attribute name="VALUE" x="9.4456" y="66.6751" size="0.0254" layer="27"/>
 </element>
 <element name="GND" library="wirepad" package="SMD1,27-2,54" value="" x="7.6995" y="66.6751" smashed="yes" rot="R180">
-<attribute name="NAME" x="8.328" y="68.879" size="1.27" layer="25" rot="R90"/>
 <attribute name="VALUE" x="7.6995" y="66.6751" size="0.0254" layer="27" rot="R180"/>
 </element>
 <element name="C2" library="SparkFun" package="0805" value="22n" x="10.3188" y="61.5949" smashed="yes" rot="R270">
-<attribute name="NAME" x="11.1443" y="62.0394" size="0.4064" layer="25" rot="R270"/>
 <attribute name="VALUE" x="9.6076" y="61.2584" size="0.6096" layer="27"/>
 </element>
 <element name="C3" library="SparkFun" package="0805" value="22n" x="13.2525" y="56.0388" smashed="yes" rot="R90">
-<attribute name="NAME" x="14.4907" y="55.5943" size="0.4064" layer="25" rot="R90"/>
 <attribute name="VALUE" x="14.1605" y="56.3244" size="0.6096" layer="27" rot="R180"/>
 </element>
 <element name="Q1" library="seb" package="X22" value="20 Mhz" x="10.954" y="57.9438" smashed="yes" rot="R270">
-<attribute name="NAME" x="8.7316" y="58.7376" size="0.4064" layer="25" rot="R270"/>
 <attribute name="VALUE" x="9.106" y="57.5948" size="0.6096" layer="27"/>
 </element>
 <element name="IC1" library="avr-4" package="TQFP32-08" value="atmega88" x="19.1833" y="59.8488" smashed="yes">
-<attribute name="NAME" x="20.7009" y="57.4675" size="0.8128" layer="25"/>
 <attribute name="VALUE" x="16.9799" y="59.5948" size="0.6096" layer="27"/>
 </element>
 <element name="5V1" library="wirepad" package="SMD1,27-2,54" value="" x="13.1764" y="50.9586" smashed="yes" rot="R180">
-<attribute name="NAME" x="12.5475" y="48.1201" size="1.27" layer="25" rot="R270"/>
 <attribute name="VALUE" x="13.1764" y="50.9586" size="0.0254" layer="27" rot="R180"/>
 </element>
 <element name="GND1" library="wirepad" package="SMD1,27-2,54" value="" x="11.4301" y="50.9587" smashed="yes" rot="R180">
-<attribute name="NAME" x="10.8014" y="48.1199" size="1.27" layer="25" rot="R270"/>
 <attribute name="VALUE" x="11.4301" y="50.9587" size="0.0254" layer="27" rot="R180"/>
 </element>
 <element name="R2" library="SparkFun" package="0805" value="68k" x="23.495" y="54.6101" smashed="yes" rot="R270">
-<attribute name="NAME" x="24.3205" y="55.3721" size="0.4064" layer="25" rot="R270"/>
 <attribute name="VALUE" x="24.276" y="55.4864" size="0.6096" layer="27" rot="R270"/>
 </element>
 <element name="C4" library="SparkFun" package="0805" value="22µF" x="19.3676" y="51.1174" smashed="yes">
-<attribute name="NAME" x="18.6056" y="51.9429" size="0.4064" layer="25"/>
 <attribute name="VALUE" x="16.6498" y="49.5743" size="0.6096" layer="27"/>
 </element>
 <element name="RSSI" library="wirepad" package="SMD1,27-2,54" value="" x="22.2251" y="51.1176" smashed="yes">
-<attribute name="NAME" x="24.9176" y="49.5114" size="1.27" layer="25" rot="R90"/>
 <attribute name="VALUE" x="22.2251" y="51.1176" size="0.0254" layer="27"/>
 </element>
 <element name="SPEKTRUM_OUT" library="wirepad" package="SMD1,27-2,54" value="" x="7.9376" y="50.9587" smashed="yes">
-<attribute name="NAME" x="7.4675" y="48.2788" size="1.27" layer="25" rot="R270"/>
 <attribute name="VALUE" x="7.9376" y="50.9587" size="0.0254" layer="27"/>
 </element>
 <element name="R4" library="SparkFun" package="0805" value="100R" x="19.3675" y="53.3398" smashed="yes" rot="R180">
-<attribute name="NAME" x="20.1295" y="52.5143" size="0.4064" layer="25" rot="R180"/>
 <attribute name="VALUE" x="20.4343" y="52.5714" size="0.6096" layer="27" rot="R180"/>
 </element>
 <element name="LED2" library="led" package="CHIPLED_0805" value="" x="16.0337" y="53.8164" smashed="yes" rot="R270">
-<attribute name="NAME" x="14.7637" y="55.0864" size="1.27" layer="25"/>
 <attribute name="VALUE" x="14.7637" y="51.2764" size="1.27" layer="27"/>
 </element>
 <element name="5V2" library="wirepad" package="SMD1,27-2,54" value="" x="9.6838" y="50.9588" smashed="yes">
-<attribute name="NAME" x="9.0551" y="48.12" size="1.27" layer="25" rot="R270"/>
 <attribute name="VALUE" x="9.6838" y="50.9588" size="0.0254" layer="27"/>
 </element>
-<element name="T1" library="transistor" package="SOT23" value="BC817" x="20.6375" y="66.6749" rot="R270"/>
-<element name="R3" library="SparkFun" package="0805" value="1k" x="13.335" y="64.5319" rot="R180"/>
-<element name="R5" library="SparkFun" package="0805" value="10k" x="17.145" y="66.5162" rot="R180"/>
+<element name="T1" library="transistor" package="SOT23" value="BC817" x="20.6375" y="66.6749" smashed="yes" rot="R270">
+<attribute name="VALUE" x="17.4625" y="68.5799" size="1.27" layer="27" rot="R270"/>
+</element>
+<element name="R3" library="SparkFun" package="0805" value="1k" x="13.335" y="64.5319" smashed="yes" rot="R180">
+<attribute name="VALUE" x="14.351" y="65.9289" size="0.4064" layer="27" rot="R180"/>
+</element>
+<element name="R5" library="SparkFun" package="0805" value="10k" x="17.145" y="66.5162" smashed="yes" rot="R180">
+<attribute name="VALUE" x="18.161" y="67.9132" size="0.4064" layer="27" rot="R180"/>
+</element>
 </elements>
 <signals>
 <signal name="GND">
